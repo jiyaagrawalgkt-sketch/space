@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Space Quiz – Space Revolution Day</title>
+<link rel="stylesheet" href="spacee.css">
+</head>
+<body>
+<!-- Header Banner -->
+<header class="space-header">
+    <div class="header-background">
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <div class="header-text">
+                <h1 class="main-title">🛰️Space Quiz🛰️</h1>
+                <h2 class="subtitle">National Celebration of Space Revolution Day</h2>
+                <div class="description">
+                    Celebrating humanity's greatest achievements in space exploration
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Introduction Section -->
+<section class="introduction-section">
+    <div class="container">
+        <div class="intro-card">
+            <h3 class="intro-title">🚀About Space Revolution Day🚀</h3>
+            <div class="intro-grid">
+                <div class="intro-item">
+                    <h4 class="intro-subtitle">Historic Significance</h4>
+                    <p class="intro-text">
+                        Space Revolution Day commemorates the pivotal moments that transformed 
+                        humanity's relationship with the cosmos. From the first satellite launches 
+                        to lunar landings, this day celebrates our journey beyond Earth.
+                    </p>
+                </div>
+                <div class="intro-item">
+                    <h4 class="intro-subtitle">Future Exploration</h4>
+                    <p class="intro-text">
+                        Today marks not just our past achievements, but our commitment to 
+                        future exploration. Mars missions, space stations, and interstellar 
+                        dreams continue to push the boundaries of human possibility.
+                    </p>
+                </div>
+            </div>
+            <div class="quote-section">
+                <p class="quote-text">
+                    "The Earth is the cradle of humanity, but mankind cannot stay in the cradle forever."
+                </p>
+                <p class="quote-author">
+                    — Konstantin Tsiolkovsky, Father of Astronautics
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quiz Section -->
+<section class="quiz-section" id="quizSection" style="display:none;">
+    <div class="container">
+        <div class="quiz-card">
+            <div class="quiz-content">
+                <h3 class="quiz-title" id="quizQuestion">Question here</h3>
+                <div id="quizOptions" class="quiz-options">
+                    <!-- Options will appear here dynamically -->
+                </div>
+                <button id="nextBtn" class="start-button" style="display:none;">Next</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Start Button -->
+<section class="quiz-section" id="startSection">
+    <div class="container">
+        <div class="quiz-card">
+            <div class="quiz-content">
+                <h3 class="quiz-title">Ready for Launch?</h3>
+                <p class="quiz-description">
+                    Test your knowledge of space exploration, astronomy, and the universe beyond!
+                </p>
+                <div class="quiz-features">
+                    <span class="feature">🚀 Multiple Choice Questions</span>
+                    <span class="feature">⭐ Space Facts & History</span>
+                    <span class="feature">🌌 Fun & Educational</span>
+                </div>
+                <button id="startQuizBtn" class="start-button">Start Quiz</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section id="resultsSection" class="results-section" style="display: none;">
+    <div class="container">
+        <div class="results-card">
+            <div class="results-content">
+                <div class="celebration-emoji">🎉</div>
+                <h3 class="results-title">Thanks for participating in Space Quiz!</h3>
+                <p class="results-description" id="scoreText">Your score: 0/10</p>
+                <div class="achievement-grid">
+                    <div class="achievement-item">
+                        <div class="achievement-emoji">🌟</div>
+                        <div class="achievement-title">Space Explorer</div>
+                        <div class="achievement-desc">Ready for more adventures</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-emoji">🔭</div>
+                        <div class="achievement-title">Cosmic Knowledge</div>
+                        <div class="achievement-desc">Keep learning about space</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-emoji">🚀</div>
+                        <div class="achievement-title">Future Astronaut</div>
+                        <div class="achievement-desc">Dream big, reach for stars</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+const quizQuestions = [
+  { q: "Which was the first artificial satellite in space?", options: ["Sputnik 1", "Apollo 11", "Hubble Telescope", "Chandrayaan-1"], answer: 0 },
+  { q: "Who was the first human in space?", options: ["Neil Armstrong", "Yuri Gagarin", "Buzz Aldrin", "Valentina Tereshkova"], answer: 1 },
+  { q: "Which planet is known as the Red Planet?", options: ["Mars", "Venus", "Jupiter", "Mercury"], answer: 0 },
+  { q: "What is the name of the first Indian satellite?", options: ["Aryabhata", "INSAT-1A", "Rohini", "GSAT-6"], answer: 0 },
+  { q: "Which space telescope was launched in 1990?", options: ["James Webb", "Hubble", "Kepler", "Spitzer"], answer: 1 },
+  { q: "Which planet has the most moons?", options: ["Saturn", "Jupiter", "Uranus", "Neptune"], answer: 0 },
+  { q: "Who is known as the father of modern rocketry?", options: ["Isaac Newton", "Konstantin Tsiolkovsky", "Galileo Galilei", "Robert Goddard"], answer: 3 },
+  { q: "What is the closest star to Earth?", options: ["Alpha Centauri", "Proxima Centauri", "Sun", "Sirius"], answer: 2 },
+  { q: "Which mission first landed humans on the Moon?", options: ["Apollo 11", "Apollo 13", "Vostok 1", "Chandrayaan 2"], answer: 0 },
+  { q: "Which planet is famous for its rings?", options: ["Saturn", "Mars", "Neptune", "Venus"], answer: 0 }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+const startBtn = document.getElementById('startQuizBtn');
+const quizSection = document.getElementById('quizSection');
+const startSection = document.getElementById('startSection');
+const quizQuestionEl = document.getElementById('quizQuestion');
+const quizOptionsEl = document.getElementById('quizOptions');
+const nextBtn = document.getElementById('nextBtn');
+const resultsSection = document.getElementById('resultsSection');
+const scoreText = document.getElementById('scoreText');
+
+startBtn.addEventListener('click', () => {
+  startSection.style.display = 'none';
+  quizSection.style.display = 'block';
+  showQuestion();
+});
+
+function showQuestion() {
+  const q = quizQuestions[currentQuestion];
+  quizQuestionEl.textContent = `Q${currentQuestion + 1}: ${q.q}`;
+  quizOptionsEl.innerHTML = '';
+  q.options.forEach((option, index) => {
+    const btn = document.createElement('button');
+    btn.textContent = option;
+    btn.addEventListener('click', () => selectAnswer(index));
+    quizOptionsEl.appendChild(btn);
+  });
+  nextBtn.style.display = 'none';
+}
+
+function selectAnswer(index) {
+  const correct = quizQuestions[currentQuestion].answer;
+  Array.from(quizOptionsEl.children).forEach((btn, i) => {
+    btn.disabled = true;
+    if(i === correct) btn.classList.add('correct'); // highlight correct
+    if(i === index && i !== correct) btn.classList.add('wrong'); // highlight wrong
+  });
+  if(index === correct) score++;
+  nextBtn.style.display = 'inline-block';
+}
+
+nextBtn.addEventListener('click', () => {
+  currentQuestion++;
+  if(currentQuestion < quizQuestions.length) {
+    showQuestion();
+  } else {
+    showResults();
+  }
+});
+
+function showResults() {
+  quizSection.style.display = 'none';
+  resultsSection.style.display = 'block';
+  scoreText.textContent = `Your score: ${score}/${quizQuestions.length}`;
+
+  // ✅ Show Certificate Download Option
+  const certBtn = document.createElement('button');
+  certBtn.textContent = "🎓 Download Certificate";
+  certBtn.classList.add("start-button");
+  certBtn.style.marginTop = "20px";
+  certBtn.addEventListener('click', generateCertificate);
+  resultsSection.querySelector('.results-content').appendChild(certBtn);
+
+  resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Simple Certificate generator (text file)
+function generateCertificate() {
+  const certificate = `
+  🌌 Space Quiz Certificate 🌌
+
+  Congratulations!
+
+  You scored ${score} out of ${quizQuestions.length}.
+
+  Awarded on: ${new Date().toLocaleDateString()}
+  `;
+  const blob = new Blob([certificate], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "Space_Quiz_Certificate.txt";
+  link.click();
+}
+</script>
