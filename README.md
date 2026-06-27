@@ -1,4 +1,4 @@
-# 🚀 Space
+# 🚀 Space Quiz
 
 An interactive and visually engaging **space-themed website** developed using **HTML, CSS, and JavaScript**. The project is designed to provide users with an immersive experience by showcasing the beauty of space through modern web design, smooth animations, and responsive layouts.
 
